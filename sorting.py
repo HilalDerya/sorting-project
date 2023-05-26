@@ -1,155 +1,9 @@
 import tkinter as tk
-<<<<<<< HEAD
 from tkinter import messagebox
-=======
->>>>>>> fc45740 (new)
 import random
 import time
 import threading
 
-<<<<<<< HEAD
-=======
-# Add sorting algorithms
-def selection_sort(data, draw_data, canvas, graph_type, time_interval):
-    for i in range(len(data)):
-        min_idx = i
-        for j in range(i+1, len(data)):
-            if data[j] < data[min_idx]:
-                min_idx = j
-        data[i], data[min_idx] = data[min_idx], data[i]
-        draw_data(canvas, data, graph_type, ["green" if x == i or x == min_idx else "white" for x in range(len(data))])
-        time.sleep(time_interval)
-    pass
-
-def bubble_sort(data, draw_data, canvas, graph_type, time_interval):
-    n = len(data)
-    for i in range(n):
-        for j in range(0, n-i-1):
-            if data[j] > data[j+1]:
-                data[j], data[j+1] = data[j+1], data[j]
-                draw_data(canvas, data, graph_type, ["green" if x == j or x == j + 1 else "white" for x in range(len(data))])
-                time.sleep(time_interval)
-    pass
-
-def insertion_sort(data, draw_data, canvas, graph_type, time_interval):
-    for i in range(1, len(data)):
-        key = data[i]
-        j = i-1
-        while j >= 0 and key < data[j]:
-            data[j+1] = data[j]
-            j -= 1
-        data[j+1] = key
-        draw_data(canvas, data, graph_type, ["green" if x == i or x == j + 1 else "white" for x in range(len(data))])
-        time.sleep(time_interval)
-    pass
-
-def merge_sort(data, draw_data, canvas, graph_type, time_interval):
-    merge_sort_algorithm(data, 0, len(data)-1, draw_data, time_interval)
-    pass
-
-def merge_sort_algorithm(data, left, right, draw_data, time_interval):
-    if left < right:
-        middle = (left + right) // 2
-        merge_sort_algorithm(data, left, middle, draw_data, time_interval)
-        merge_sort_algorithm(data, middle+1, right, draw_data, time_interval)
-        merge(data, left, middle, right, draw_data, time_interval)
-
-def merge(data, left, middle, right, draw_data, time_interval):
-    n1 = middle - left + 1
-    n2 = right - middle
-
-    left_array = data[left:left+n1]
-    right_array = data[middle+1:middle+1+n2]
-
-    i = j = 0
-    k = left
-
-    while i < n1 and j < n2:
-        if left_array[i] <= right_array[j]:
-            data[k] = left_array[i]
-            i += 1
-        else:
-            data[k] = right_array[j]
-            j += 1
-        k += 1
-    while i < n1:
-        data[k] = left_array[i]
-        i += 1
-        k += 1
-    while j < n2:
-        data[k] = right_array[j]
-        j += 1
-        k += 1
-
-    draw_data(canvas, data, graph_type, ["green" if left <= x <= right else "white" for x in range(len(data))])
-    time.sleep(time_interval)
-
-def quick_sort(data, draw_data, canvas, graph_type, time_interval):
-    quick_sort_algorithm(data, 0, len(data)-1, draw_data, time_interval)
-    pass
-
-def quick_sort_algorithm(data, low, high, draw_data, time_interval):
-    if low < high:
-        pivot_index = partition(data, low, high, draw_data, time_interval)
-        quick_sort_algorithm(data, low, pivot_index - 1, draw_data, time_interval)
-        quick_sort_algorithm(data, pivot_index + 1, high, draw_data, time_interval)
-
-def partition(data, low, high, draw_data, time_interval):
-    pivot = data[high]
-    i = low - 1
-
-    for j in range(low, high):
-        if data[j] <= pivot:
-            i += 1
-            data[i], data[j] = data[j], data[i]
-            draw_data(canvas, data, graph_type, ["green" if x == i or x == j else "white" for x in range(len(data))])
-            time.sleep(time_interval)
-
-    data[i+1], data[high] = data[high], data[i+1]
-    draw_data(canvas, data, graph_type, ["green" if x == i + 1 or x == high else "white" for x in range(len(data))])
-    time.sleep(time_interval)
-
-    return i + 1
-
-def create_data(size, min_value, max_value):
-    return [random.randint(min_value, max_value) for _ in range(size)]
-
-def draw_data(canvas, data, type, colors=None, time_interval=0):
-    canvas.delete("all")
-    canvas_width = int(canvas['width'])
-    canvas_height = int(canvas['height'])
-    bar_width = canvas_width / (len(data) + 1)
-    max_val = max(data)
-    
-    normalized_data = [i / max_val for i in data]
-
-    if colors is None:
-        colors = ["blue" for _ in range(len(data))]
-
-    if type == "Scatter":
-        for i, value in enumerate(normalized_data):
-            x = i * bar_width + bar_width // 2
-            y = canvas_height - value * canvas_height
-            canvas.create_oval(x - 2, y - 2, x + 2, y + 2, fill=colors[i], outline="")
-    elif type == "Bar":
-        for i, value in enumerate(normalized_data):
-            x1 = i * bar_width
-            y1 = canvas_height - value * canvas_height
-            x2 = (i + 1) * bar_width
-            y2 = canvas_height
-            canvas.create_rectangle(x1, y1, x2, y2, fill=colors[i], outline="")
-    elif type == "Stem":
-        for i, value in enumerate(normalized_data):
-            x = i * bar_width + bar_width // 2
-            y = canvas_height - value * canvas_height
-            canvas.create_line(x, canvas_height, x, y, fill=colors[i])
-            canvas.create_oval(x - 2, y - 2, x + 2, y + 2, fill=colors[i], outline="")
-
-    canvas.update()
-    time.sleep(time_interval)
-    pass
-
->>>>>>> fc45740 (new)
 class SortingVisualizer:
     def __init__(self, master):
         self.master = master
@@ -158,13 +12,10 @@ class SortingVisualizer:
         
         self.create_widgets()
 
-<<<<<<< HEAD
         self.data = []
 
         self.sorting = False
 
-=======
->>>>>>> fc45740 (new)
     def create_widgets(self):
         self.canvas = tk.Canvas(self.master, width=600, height=400, bg="white")
         self.canvas.pack(pady=10)
@@ -228,7 +79,6 @@ class SortingVisualizer:
         elif type == "Stem":
             for i, value in enumerate(normalized_data):
                 x = i * bar_width + bar_width // 2
-<<<<<<< HEAD
                 y1 = canvas_height
                 y2 = canvas_height - value * canvas_height
                 self.canvas.create_line(x, y1, x, y2, fill=colors[i])
@@ -385,50 +235,3 @@ class SortingVisualizer:
 root = tk.Tk()
 sorting_visualizer = SortingVisualizer(root)
 root.mainloop()
-=======
-                y = canvas_height - value * canvas_height
-                self.canvas.create_line(x, canvas_height, x, y, fill=colors[i])
-                self.canvas.create_oval(x - 2, y - 2, x + 2, y + 2, fill=colors[i], outline="")
-
-        self.canvas.update()
-        time.sleep(time_interval)
-
-    def create(self):
-        size = int(self.size_entry.get())
-        data = create_data(size, 1, 100)
-        self.draw_on_canvas(data, self.graph_type.get())
-        self.data = data
-
-
-    def start(self):
-        time_interval = float(self.speed_entry.get())
-
-        def start_sorting():
-            if self.algorithm.get() == "Selection":
-                selection_sort(self.data, self.draw_on_canvas, self.canvas, self.graph_type.get(), time_interval)
-            elif self.algorithm.get() == "Bubble":
-                bubble_sort(self.data, self.draw_on_canvas, self.canvas, self.graph_type.get(), time_interval)
-            elif self.algorithm.get() == "Insertion":
-                insertion_sort(self.data, self.draw_on_canvas, self.canvas, self.graph_type.get(), time_interval)
-            elif self.algorithm.get() == "Merge":
-                merge_sort(self.data, self.draw_on_canvas, self.canvas, self.graph_type.get(), time_interval)
-            elif self.algorithm.get() == "Quick":
-                quick_sort(self.data, self.draw_on_canvas, self.canvas, self.graph_type.get(), time_interval)
-
-        sorting_thread = threading.Thread(target=start_sorting)
-        sorting_thread.start()
-
-    def stop(self):
-        # (Implement stopping the sorting process)
-        pass
-
-    def reset(self):
-        self.canvas.delete("all")
-        self.data = []
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    sorting_visualizer = SortingVisualizer(root)
-    root.mainloop()
-
->>>>>>> fc45740 (new)
